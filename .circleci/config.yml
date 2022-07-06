@@ -12,7 +12,6 @@ commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
-      # Add parameter here
       workflow_id:
         type: string
     steps:
@@ -128,7 +127,6 @@ jobs:
     docker:
       - image: amazon/aws-cli
     steps:
-      # Checkout code from git
       - checkout
       - run: yum install -y tar gzip
       - run:
@@ -144,9 +142,9 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
+              --tags project=udapeople \
                --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
                --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}
-               --tags project=udapeople \
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -159,7 +157,7 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      # Here's where you will add some code to rollback on failure      
+                
 
 workflows:
   default:
