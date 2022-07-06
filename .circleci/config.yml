@@ -79,9 +79,9 @@ jobs:
              cd frontend
              npm install
              npm audit fix --audit-level=critical --force
-      - slack/notify:
-          channel: C03DAJYL3SM
-          event: pass
+      # - slack/notify:
+      #     channel: C03DAJYL3SM
+      #     event: pass
 
   scan-backend:
     docker:
@@ -95,10 +95,10 @@ jobs:
           command: |
              cd backend
              npm install
-             npm audit --audit-level=critical
-      - slack/notify:
-          channel: C03DAJYL3SM
-          event: fail
+             npm audit fix --audit-level=critical --force
+      # - slack/notify:
+      #     channel: C03DAJYL3SM
+      #     event: fail
 
 workflows:
   default:
@@ -111,10 +111,10 @@ workflows:
          requires: [build-backend]
       - scan-frontend:
          requires: [build-frontend]
-         context: slack-secrets
+         #context: slack-secrets
       - scan-backend:
          requires: [build-backend]
-         context: slack-secrets
+        # context: slack-secrets
 
 
 
