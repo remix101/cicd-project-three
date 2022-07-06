@@ -94,7 +94,7 @@ jobs:
              npm install
              npm audit --audit-level=critical
       - slack/notify:
-          channel: D03F1CLKJN7
+          channel: https://alx-nd-c1.slack.com/archives/D03F1CLKJN7
           event: fail
           template: basic_fail_1
 
