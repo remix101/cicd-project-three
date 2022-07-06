@@ -81,7 +81,7 @@ jobs:
              npm audit fix --audit-level=critical --force
       - slack/notify:
           channel: C03DAJYL3SM
-          event: success
+          event: pass
 
   scan-backend:
     docker:
