@@ -183,6 +183,16 @@ jobs:
   configure-infrastructure:
     docker:
       - image: python:3.10-alpine3.16
+        environment:
+            TYPEORM_MIGRATIONS: $TYPEORM_MIGRATIONS
+            TYPEORM_MIGRATIONS_DIR: $TYPEORM_MIGRATIONS_DIR
+            TYPEORM_CONNECTION: $TYPEORM_CONNECTION
+            TYPEORM_HOST: $TYPEORM_HOST
+            TYPEORM_USERNAME: $TYPEORM_USERNAME
+            TYPEORM_PASSWORD: $TYPEORM_PASSWORD
+            TYPEORM_DATABASE: $TYPEORM_DATABASE
+            TYPEORM_PORT: $TYPEORM_PORT
+            TYPEORM_ENTITIES: $TYPEORM_ENTITIES
     steps:
       - checkout
       - add_ssh_keys:
@@ -193,7 +203,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update --no-cache tar gzip ansible aws-cli
+            apk add --update tar gzip ansible nodejs npm curl
+            pip install awscli
       - run:
           name: Configure server
           command: |
@@ -205,26 +216,31 @@ jobs:
             
   run-migrations:
     docker:
-      - image: python:3.10-alpine3.16
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
           name: Install deps
           command: |
-            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+            apk add --update tar gzip nodejs npm aws-cli curl
       - restore_cache:
           keys: [backend-build]
       - run:
-         name: Run migrations
+         name: run migrations
          command: |
             cd backend
+            pwd
+            ls
             npm install
-            npm run migrations > migrations_dump.txt
+            npm run migrations > migration_${CIRCLE_WORKFLOW_ID:0:7}.txt
+            cat migration_${CIRCLE_WORKFLOW_ID:0:7}.txt
       - run:
          name: Send migration status to kvdb.io
-         command: |   
+         command: | 
+            cd backend  
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
+              echo "successfull"
               curl https://kvdb.io/5wHhJCmoa9zrwL4WuNt6rp/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi 
       - destroy-environment:
@@ -289,7 +305,7 @@ jobs:
             cd ..
             # Zip the directory
             tar -C backend -czvf artifact.tar.gz .
-            mkdir -p ~/projects/.circleci/ansible/roles/deploy/files
+            mkdir .circleci/ansible/roles/deploy/files
             cp artifact.tar.gz .circleci/ansible/roles/deploy/files
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
@@ -308,7 +324,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update --no-cache curl aws-cli tar gzip nodejs npm
+            apk add --update ansible nodejs npm curl
+            pip install awscli
       - run:
           name: Backend smoke test.
           command: |
