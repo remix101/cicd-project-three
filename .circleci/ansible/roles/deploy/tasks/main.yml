@@ -1,38 +1,36 @@
 ---
-- name: 'update and upgrade packages.'
-  become: yes
+- name: "upgrade packages."
+  become: true
   apt:
-    upgrade: yes
-    update_cache: yes
-    cache_valid_time: 86400
-- name: remove unneeded deps
-  become: yes
+    upgrade: "yes"
+
+- name: "install dependencies."
+  become: true
   apt:
-    autoremove: yes
-- name: install dependencies
-  become: yes
-  apt:
-    name: ['nodejs', 'npm']
+    name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
-- name: install pm2
-  become: yes
+
+- name: "install pm2"
+  become: true
   npm:
     name: pm2
     global: yes
-    state: latest
     production: yes
-- name: extract artifact
-  become: yes
-  unarchive:
-    src: files/artifact.tar.gz
-    dest: .
-# - name: link node to nodejs (if you installed nodejs)
-#   become: yes
-#   shell: |
-#     ln -s /usr/bin/nodejs /usr/bin/node
-- name: start app
-  become: yes
+    state: present
+
+- name: "Copy backend artifact"
+  copy:
+    src: artifact.tar.gz
+    dest: ~/artifact.tar.gz
+
+- name: "run app"
   shell: |
+    pwd
+    cd ~/home/ubuntu
+    mkdir backend
+    tar -xvf artifact.tar.gz -C backend
+    cd backend/
+    npm install && npm run build
     pm2 stop all
-    pm2 start npm -- start
+    pm2 start npm --name backend -- start

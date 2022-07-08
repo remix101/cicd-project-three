@@ -254,7 +254,6 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      # Here's where you will add some code to rollback on failure
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
@@ -273,19 +272,18 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update --no-cache tar gzip nodejs npm tree aws-cli ansible
+            apk add --update --no-cache tar gzip nodejs npm aws-cli ansible
       - run:
           name: Deploy backend
           command: |
             cd backend
-            npm install
-            npm run build --silent
+            npm i
+            npm run build
             cd ..
+            # Zip the directory
             tar -C backend -czvf artifact.tar.gz .
-            # tree -afC /root/project/.circleci -I *node_modules*
-            mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
-            mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
             cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure
@@ -308,7 +306,7 @@ jobs:
           command: |
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-            if curl -s http://google.com
+            if curl "${API_URL}/api/status" | grep "ok"
             then
                 return 0
             else
@@ -321,7 +319,6 @@ jobs:
             echo ${URL} 
             if curl -s ${URL} | grep "Welcome"
             then
-                # Change this to 0 after the job fails
               return 0
             else
               return 1
