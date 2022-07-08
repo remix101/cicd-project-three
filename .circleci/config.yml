@@ -216,13 +216,13 @@ jobs:
             
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: python:3.10-alpine3.16
     steps:
       - checkout
       - run:
           name: Install deps
           command: |
-            apk add --update tar gzip nodejs npm aws-cli curl
+            apk add --update tar gzip nodejs npm ansible curl aws-cli
       - restore_cache:
           keys: [backend-build]
       - run:
