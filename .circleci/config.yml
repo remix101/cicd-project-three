@@ -179,11 +179,11 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - slack/notify:
-          branch_pattern: main
-          channel: C01LUFSU1QR
-          event: fail
-          template: basic_fail_1
+      # - slack/notify:
+      #     branch_pattern: main
+      #     channel: C01LUFSU1QR
+      #     event: fail
+      #     template: basic_fail_1
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
