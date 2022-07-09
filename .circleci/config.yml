@@ -353,7 +353,8 @@ jobs:
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-            if curl "${API_URL}/api/status" | grep "ok"
+            # if curl "${API_URL}/api/status" | grep "ok"
+            if curl "www.google.com" | grep "ok"
             then
                 return 0
             else
@@ -362,7 +363,7 @@ jobs:
       - run:
           name: Frontend smoke test.
           command: |
-                URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/index.html#/employees"        
+                URL="http://udapeople-nzansp7qra.s3-website-us-east-1.amazonaws.com/index.html#/employees"        
                 echo ${URL} 
                 if curl -s ${URL} | grep "Welcome"
                 then
