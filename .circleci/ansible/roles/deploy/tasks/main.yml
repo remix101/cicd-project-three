@@ -8,7 +8,7 @@
 - name: "Unpackage backend"
   become_user: true
   unarchive:
-    src: files/backend.tgz
+    src: files/artifact.tar.gz
     dest: ~/udapeople-backend/
 
 - name: "Run backend"
