@@ -191,7 +191,7 @@ jobs:
   #---------------------------------------------------------------------------------------------
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
         environment:
           TYPEORM_MIGRATIONS: $TYPEORM_MIGRATIONS
           TYPEORM_MIGRATIONS_DIR: $TYPEORM_MIGRATIONS_DIR
@@ -257,7 +257,7 @@ jobs:
   #---------------------------------------------------------------------------------------------
   deploy-frontend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
     steps:
       - checkout
       - attach_workspace:
@@ -296,7 +296,7 @@ jobs:
   #---------------------------------------------------------------------------------------------
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
     steps:
       - checkout
       - add_ssh_keys:
@@ -333,7 +333,7 @@ jobs:
   #---------------------------------------------------------------------------------------------
   smoke-test:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
     steps:
       - checkout
       - attach_workspace:
@@ -377,7 +377,7 @@ jobs:
   
   cloudfront-update:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
     steps:
       - checkout
       - run:
