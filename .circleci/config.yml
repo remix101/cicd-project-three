@@ -89,9 +89,9 @@ jobs:
           cd frontend
           npm install
           npm run test  
-      - slack/notify:
-          event: fail
-          template: basic_fail_1
+      # - slack/notify:
+      #     event: fail
+      #     template: basic_fail_1
 
   #---------------------------------------------------------------------------------------------
   #---------------------------------------------------------------------------------------------
@@ -106,9 +106,9 @@ jobs:
           cd backend
           npm install
           npm run test
-      - slack/notify:
-          event: fail
-          template: basic_fail_1
+      # - slack/notify:
+      #     event: fail
+      #     template: basic_fail_1
   
   #---------------------------------------------------------------------------------------------
   #---------------------------------------------------------------------------------------------
