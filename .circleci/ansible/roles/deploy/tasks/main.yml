@@ -1,19 +1,30 @@
 ---
-- name: "Create directory"
-  become_user: true
+- name: "Creates backend app directory"
   file:
-    path: ~/udapeople-backend/
+    path: ~/backend-app
     state: directory
 
-- name: "Unpackage backend"
-  become_user: true
+- name: "Unarchive backend files"
   unarchive:
-    src: files/backend.tgz
-    dest: ~/udapeople-backend/
+    src: artifact.tar.gz
+    dest: ~/backend-app
 
-- name: "Run backend"
-  become_user: true
+- name: "Installing Node Dependencies"
   shell: |
-    cd ~/udapeople-backend/backend
-    
-    pm2 start npm -- run start
+    cd ~/backend-app
+    npm i
+- name: "Executing Node app with PM2"
+  shell: |
+    cd ~/backend-app/dist
+    pm2 stop default
+    pm2 start main.js
+  register: execute_node
+
+- name: print message
+  debug:
+    msg: "{{ execute_node.stdout_lines }}"
+
+- name: "Configure pm2 to start as service"
+  become: true
+  shell: |
+    env PATH=$PATH:/usr/local/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu
