@@ -1,0 +1,51 @@
+{
+    "Transaction": {
+        "Narration": "Test Fund Transfer from AML",
+        "Amount": "320",
+        "BeneficiaryCurrencyCode": "NGN",
+        "SenderCurrencyCode": "USD",
+        "AmlReference": "",
+        "TransactionReference": "VSF1452366276121223",
+        "TransactionRate": "1",
+        "ClientName": "Swerve Pay"
+    },
+    "Beneficiary": {
+        "Address": "Lagos, Nigeria",
+        "AccountNumber": "5900085856",
+        "BankName": "Providus Bank PLC",
+        "BankCode": "101",
+        "BankAddress": "Victoria Island",
+        "BankBranchAddress": "Victoria Island",
+        "Bank_IBAN": "",
+        "State": "Lagos",
+        "SwiftCode": "",
+        "City": "Lagos",
+        "CoreSystemId": null,
+        "FirstName": "Esther",
+        "LastName": "Amuzie",
+        "MiddleName": null,
+        "CountryCode": "NG",
+        "PhoneNumber": "09084562378",
+        "EmailAddress": "aliyadevid45@gmail.com",
+        "Detail1": null,
+        "Detail2": null,
+        "Detail3": null
+    },
+    "Sender": {
+        "Address": "Ohio",
+        "CoreSystemId": null,
+        "IdentificationNumber": "NIN1235678290",
+        "IdentificationType": "ID",
+        "IdentificationDateOfIssue": "2020-08-24",
+        "IdentificationExpiryDate": "2024-08-24",
+        "FirstName": "Bukunmi",
+        "MiddleName": null,
+        "LastName": "Tanimonure",
+        "CountryCode": "US",
+        "PhoneNumber": "08190093274",
+        "EmailAddress": "bukunmi.tani34@hotmail.com",
+        "Detail1": null,
+        "Detail2": null,
+        "Detail3": null
+    }
+}

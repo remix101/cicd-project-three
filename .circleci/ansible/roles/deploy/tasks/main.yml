@@ -1,18 +1,36 @@
 ---
-- name: "Create directory"
-  become_user: true
-  file:
-    path: ~/udapeople-backend/
-    state: directory
+- name: "upgrade packages."
+  become: true
+  apt:
+    upgrade: "yes"
 
-- name: "Unpackage backend"
-  become_user: true
-  unarchive:
-    src: files/artifact.tar.gz
-    dest: ~/udapeople-backend/
+- name: "install dependencies."
+  become: true
+  apt:
+    name: ["nodejs", "npm"]
+    state: latest
+    update_cache: yes
 
-- name: "Run backend"
-  become_user: true
+- name: "install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
+
+- name: "Copy backend artifact"
+  copy:
+    src: artifact.tar.gz
+    dest: ~/artifact.tar.gz
+
+- name: "run app"
   shell: |
-    cd ~/udapeople-backend/backend
-    pm2 start npm -- run start
+    pwd
+    cd ~/home/ubuntu
+    mkdir backend
+    tar -xvf artifact.tar.gz -C backend
+    cd backend/
+    npm install && npm run build
+    pm2 stop all
+    pm2 start npm --name backend -- start

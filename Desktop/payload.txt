@@ -1,0 +1,103 @@
+{
+
+    "Transaction": {
+
+        "Narration": "desc",
+
+        "Amount": "1000",
+
+        "BeneficiaryCurrencyCode": "NGN",
+
+        "SenderCurrencyCode": "USD",
+
+        "AmlReference": null,
+
+        "TransactionReference": "VPAY61787Y58926456678197",
+
+        "TransactionRate": "540",
+
+        "ClientName": "Charles Rotimi"
+
+
+
+    },
+
+    "Beneficiary": {
+
+        "Address": "Nigeria",
+
+        "AccountNumber": "8254678832",
+
+        "BankName": "Sterling Bank",
+
+        "BankCode": "232",
+
+        "BankAddress": "Victoria Island Lagos",
+
+        "BankBranchAddress": "Lagos",
+
+        "BankIban": "IBAN123612",
+
+        "State": "Lagos",
+
+        "SwiftCode": "SWIFTSBNK232",
+
+        "City": "Lagos",
+
+        "CoreSystemId": "R24468985162",
+
+        "FirstName": "Charles",
+
+        "LastName": "Nurudeeen",
+
+        "MiddleName": "Rotimi",
+
+        "CountryCode": "NG",
+
+        "PhoneNumber": "0904589302",
+
+        "EmailAddress": "charlienurudeen@yahoo.com",
+
+        "Detail1": null,
+
+        "Detail2": null,
+
+        "Detail3": null
+
+    },
+
+    "Sender": {
+
+        "Address": "32 Bourdillion Ikoyi Lagos",
+
+        "CoreSystemId": "78955266100",
+
+        "IdentificationNumber": "A190398623BA",
+
+        "IdentificationType": "International Passport",
+
+        "IdentificationDateOfIssue": "2020-12-09",
+
+        "IdentificationExpiryDate": "2024-12-23",
+
+        "FirstName": "Ayotunde",
+
+        "MiddleName": "Fabiyi",
+
+        "LastName": "Damilola",
+
+        "CountryCode": "US",
+
+        "PhoneNumber": "09101992939",
+
+        "EmailAddress": "ayo.damilola34@yahoo.com",
+
+        "Detail1": null,
+
+        "Detail2": null,
+
+        "Detail3": null
+
+    }
+
+}

@@ -1,0 +1,57 @@
+{
+    "Cat": {
+        "ServiceCode": "PAYOUT",
+        "ConfigurationTag": "SWERVE"
+    },
+    "Data": {
+        "Sender": {
+            "FirstName": "Michael",
+            "LastName": "Fabiyi",
+            "Email": "mike@fabiyi.com",
+            "Address": "49, Cole Street",
+            "City": "Ikeja",
+            "State": "Lagos",
+            "PhoneNumber": "07034573726",
+            "CountryCode": "US",
+            "CurrencyCode": "USD",
+            "IdentificationType": "ID",
+            "IdentificationNumber": "3456789",
+            "IdentificationIssuedDate": "2020-04-18",
+            "IdentificationExpiryDate": "2023-04-18",
+            "SourceAmount": "1000"
+        },
+        "PayoutIdentifier": {
+            "DebitAccountName": "Michael Fabiyi",
+            "DebitAccountNumber": "0022334455",
+            "DebitAccountBankCode": "050",
+            "EwalletId": ""
+        },
+        "Beneficiary": {
+            "FirstName": "Tunde",
+            "LastName": "Bakare",
+            "Email": "tunde.bakare@gmail.com",
+            "Address": "23 Jackson George Estate",
+            "City": "Ikeja",
+            "State": "Lagos",
+            "PhoneNumber": "08027372737",
+            "CountryCode": "NG",
+            "CurrencyCode": "NGN",
+            "BeneficiaryAmount": "1000"
+        },
+        "BankDetail": {
+            "BankName": "Guarnatee Trust Bank",
+            "BankCode": "038",
+            "BankAddress": "Some Address",
+            "BankCity": "Lagos",
+            "BankCountry": "Nigeria",
+            "BankBranch": "Ikeja"
+        },
+        "Local": {
+            "AccountNumber": "0022314223",
+            "AccountName": "Tunde Bakare"
+        },
+        "International": null,
+        "TransactionReference": "clientReference1234586",
+        "Narration": "Test From VgnCore AML"
+    }
+}
