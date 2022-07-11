@@ -69,6 +69,30 @@ jobs:
       #     event: fail
       #     template: basic_fail_1
 
+  scan-frontend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [frontend-build]
+      - run: |
+          cd frontend
+          npm install
+          npm audit fix --audit-level=critical
+
+  scan-backend:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-nodeModules]
+      - run: |
+          cd backend
+          npm install
+          npm audit fix --audit-level=critical
+
 
 workflows:
   deploy-workflow:
@@ -79,3 +103,8 @@ workflows:
           requires: [build-frontend]
       - test-backend:
           requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
+      - scan-backend:
+          requires: [build-backend]
+      
