@@ -24,8 +24,6 @@ commands:
     parameters:
       workflow_id:
         type: string
-      bucket_key:
-        type: string
     steps:
       - run:
           name: Revert migrations
