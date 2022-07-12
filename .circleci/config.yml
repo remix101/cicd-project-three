@@ -227,10 +227,11 @@ jobs:
               if grep -q "has been executed successfully." ~/project/backend/migration_${CIRCLE_WORKFLOW_ID:0:7}.txt
               then
                 echo "migration has successfull"
-                curl --insecure https://kvdb.io/HrDWLUgAqLrFW3BZ8AWp5E/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+                curl --insecure https://kvdb.io/${KVDB_BUCKET_KEY}/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
               fi
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+          bucket_key:  ${KVDB_BUCKET_KEY}
 
 
 workflows:
