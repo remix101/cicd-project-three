@@ -283,7 +283,7 @@ jobs:
           fingerprints:
             - '9f:04:cc:24:97:55:da:98:64:51:32:2a:4d:df:4e:70'
       - attach_workspace:
-          at: ./.circleci/ansible
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -302,6 +302,10 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/artifact.tar.gz 
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:

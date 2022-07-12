@@ -22,11 +22,16 @@
     global: yes
     state: latest
     production: yes
-- name: extract artifact
-  become: yes
-  unarchive:
-    src: files/artifact.tar.gz
-    dest: .
+
+- name: Copy artifact.tar.gz to EC2
+  copy:
+    src: "project/artifact.tar.gz"
+    dest: "~/"
+
+- name: "Extract Artifact"
+  shell: |
+    tar -xvfz artifact.tar.gz
+    
 - name: start app
   become: yes
   shell: |
