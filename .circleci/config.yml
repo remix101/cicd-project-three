@@ -206,17 +206,19 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
+      - run:
+          name: Install deps
+          command: |
+            apk add --update tar gzip nodejs npm ansible curl aws-cli
       - restore_cache:
           keys: [backend-build]
       - run:
+          working_directory: backend/
           name: Run migrations
           command: |
-              cd backend
-              pwd
-              ls
               npm install
               npm run migrations > migration_${CIRCLE_WORKFLOW_ID:0:7}.txt
               cat migration_${CIRCLE_WORKFLOW_ID:0:7}.txt
