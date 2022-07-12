@@ -227,9 +227,9 @@ jobs:
           command: |
               if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
               then
-                  curl -d 1  https://kvdb.io/XaFj477reWjwhRvwD8MjiA/migration_${CIRCLE_WORKFLOW_ID:0:7}
+                  curl -d 1  https://kvdb.io/HrDWLUgAqLrFW3BZ8AWp5E/migration_${CIRCLE_WORKFLOW_ID:0:7}
               else  
-                  curl -d 1  https://kvdb.io/XaFj477reWjwhRvwD8MjiA/migration_${CIRCLE_WORKFLOW_ID:0:7}_failed
+                  curl -d 1  https://kvdb.io/HrDWLUgAqLrFW3BZ8AWp5E/migration_${CIRCLE_WORKFLOW_ID:0:7}_failed
               fi 
               cat ~/project/backend/migrations_dump.txt
       - destroy-environment:
