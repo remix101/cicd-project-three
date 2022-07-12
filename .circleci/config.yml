@@ -173,7 +173,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
         environment:
           TYPEORM_MIGRATIONS: $TYPEORM_MIGRATIONS
           TYPEORM_MIGRATIONS_DIR: $TYPEORM_MIGRATIONS_DIR
