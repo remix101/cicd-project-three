@@ -209,7 +209,6 @@ jobs:
               echo TYPEORM_DATABASE: $TYPEORM_DATABASE >> ~/project/backend/.env
               echo TYPEORM_PORT: $TYPEORM_PORT >> ~/project/backend/.env
               echo TYPEORM_ENTITIES: $TYPEORM_ENTITIES >> ~/project/backend/.env
-              cat ~/project/backend.env
               cd .circleci/ansible
               cat inventory.txt
               ansible-playbook -i inventory.txt configure-server.yml
