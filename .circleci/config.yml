@@ -105,10 +105,10 @@ jobs:
             cd frontend
             npm install
             npm run test
-      - slack/notify:
-          channel: $SLACK_DEFAULT_CHANNEL
-          event: fail
-          template: basic_fail_1
+      # - slack/notify:
+      #     channel: $SLACK_DEFAULT_CHANNEL
+      #     event: fail
+      #     template: basic_fail_1
 
   test-backend:
     docker:
@@ -124,10 +124,10 @@ jobs:
             cd backend
             npm install
             npm run test
-      - slack/notify:
-          channel: $SLACK_DEFAULT_CHANNEL
-          event: fail
-          template: basic_fail_1
+      # - slack/notify:
+      #     channel: $SLACK_DEFAULT_CHANNEL
+      #     event: fail
+      #     template: basic_fail_1
           
   #ANALYZE PHASE
   scan-frontend:
@@ -208,10 +208,10 @@ jobs:
             - project/.circleci/ansible/inventory.txt  
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - slack/notify:
-          channel: $SLACK_DEFAULT_CHANNEL
-          event: fail
-          template: basic_fail_1
+      # - slack/notify:
+      #     channel: $SLACK_DEFAULT_CHANNEL
+      #     event: fail
+      #     template: basic_fail_1
 
   configure-infrastructure:
     docker:
@@ -219,7 +219,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: $FINGERPRINT_ID
+          fingerprints: ["9f:04:cc:24:97:55:da:98:64:51:32:2a:4d:df:4e:70"]
       - attach_workspace:
           at: ~/
       - run:
@@ -235,10 +235,10 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - slack/notify:
-          channel: $SLACK_DEFAULT_CHANNEL
-          event: fail
-          template: basic_fail_1
+      # - slack/notify:
+      #     channel: $SLACK_DEFAULT_CHANNEL
+      #     event: fail
+      #     template: basic_fail_1
 
   # DEPLOY PHASE
   run-migrations:
