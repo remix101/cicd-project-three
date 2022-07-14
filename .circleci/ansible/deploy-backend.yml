@@ -1,5 +1,4 @@
 ---
-
 - name: "Deploy Backend Playbook." 
   hosts: web
   user: ubuntu
