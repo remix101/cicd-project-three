@@ -178,12 +178,8 @@ jobs:
 
   configure-infrastructure:
     docker: 
-      - image: python:3.7-alpine3.11
-      # Docker image here that supports Ansible 
+      - image: python:3.10-alpine3.16
     steps:
-      # Checkout code from git
-      # Add ssh keys with fingerprint
-      # attach workspace
       - checkout 
       - add_ssh_keys:
           fingerprints: ["9f:04:cc:24:97:55:da:98:64:51:32:2a:4d:df:4e:70"]
@@ -199,16 +195,15 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure 
+      - destroy-environment
 
   run-migrations:
     docker: 
       - image: circleci/node:13.8.0
-      # Docker image here that supports NodeJS
     steps:
       - checkout 
       - restore_cache:
            keys: [backend-build]
-      # Checkout code from git
       - run:
           name: Run migrations
           command: |
@@ -228,8 +223,6 @@ jobs:
       
   deploy-frontend:
     docker:
-      # Docker image here that supports AWS CLI
-      # - image: amazon/aws-cli
       - image: python:3.10-alpine3.16
     steps:
       # Checkout code from git
@@ -266,12 +259,9 @@ jobs:
 
   deploy-backend:
     docker:
-      # Docker image here that supports Ansible
       - image: python:3.10-alpine3.16
     steps:
-      # Checkout code from git
       - checkout
-      # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints: ["9f:04:cc:24:97:55:da:98:64:51:32:2a:4d:df:4e:70"]
       - attach_workspace:
@@ -304,8 +294,7 @@ jobs:
 
   smoke-test:
     docker:
-      # Lightweight Docker image
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
     steps:
       - checkout
       - attach_workspace:
@@ -340,13 +329,12 @@ jobs:
             else
               return 1
             fi
-      # Here's where you will add some code to rollback on failure
       - destroy-environment
       - revert-migrations
       
   cloudfront-update:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
     steps:
       - checkout
       - run:
@@ -373,7 +361,6 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/files/OldWorkflowID.txt
-      # Here's where you will add some code to rollback on failure
       - destroy-environment
       - revert-migrations
   
