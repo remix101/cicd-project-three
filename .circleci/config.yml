@@ -417,8 +417,6 @@ workflows:
       - test-backend:
            requires: [build-backend]
       - scan-backend:
-           context:
-             - udapeople_notify
            requires: [build-backend]
       - scan-frontend:
            requires: [build-frontend]
