@@ -34,4 +34,4 @@
   become: yes
   shell: |
     pm2 stop all
-    pm2 start npm -- start
+    sudo pm2 start npm -- start
