@@ -1,3 +1,3 @@
 1. https://github.com/remix101/cicd-project-three
 
-2. s3://udapeople-3d4099a/index.html 
+2. http://udapeople-31b3467.s3-website-us-east-1.amazonaws.com/#/employees
