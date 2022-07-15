@@ -207,6 +207,11 @@ jobs:
           command: |
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
+      - run:
+          name: Install node exporter for monitoring
+          command: |
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt node-exporter.yml
       - destroy-environment
 
   run-migrations:
