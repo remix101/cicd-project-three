@@ -180,18 +180,6 @@ jobs:
   configure-infrastructure:
     docker: 
       - image: python:3.10-alpine3.16
-    environment:
-      - NODE_ENV: production
-      - ENVIRONMENT: production
-      - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"  
-      - TYPEORM_ENTITIES: "{{ lookup('env', 'TYPEORM_ENTITIES')}}"
-      - TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST')}}"
-      - TYPEORM_PORT: 5432
-      - TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME')}}"
-      - TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD')}}"
-      - TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE')}}"
-      - TYPEORM_MIGRATIONS: "{{ lookup('env', 'TYPEORM_MIGRATIONS')}}"
-      - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
     steps:
       - checkout 
       - add_ssh_keys:
@@ -404,6 +392,26 @@ jobs:
             else
               echo "nothing to needs to be done..."
             fi
+
+  add-prometheus-node-exporter:
+    docker:
+      - image: python:3.10-alpine3.16
+    steps:
+      - checkout 
+      - add_ssh_keys:
+          fingerprints: ["9f:04:cc:24:97:55:da:98:64:51:32:2a:4d:df:4e:70"]
+      - attach_workspace:
+          at: ~/ 
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update --no-cache tar gzip nodejs npm ansible curl aws-cli 
+      - run:
+          name: Install node exporter for monitoring
+          command: |
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt node-exporter.yml
+      - destroy-environment
  
   
 workflows:
@@ -425,8 +433,10 @@ workflows:
                   - master
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      - configure-infrastructure:
+      - add-prometheus-node-exporter:
           requires: [deploy-infrastructure]
+      - configure-infrastructure:
+          requires: [add-prometheus-node-exporter]
       - run-migrations:
           requires: [configure-infrastructure]
       - deploy-frontend:
