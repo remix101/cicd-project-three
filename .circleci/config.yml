@@ -386,10 +386,10 @@ jobs:
   cleanup:
     docker:
       - image: amazon/aws-cli
-     attach_workspace:
-          at: ~/
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Get old stack workflow id
           command: |
