@@ -386,6 +386,8 @@ jobs:
   cleanup:
     docker:
       - image: amazon/aws-cli
+     attach_workspace:
+          at: ~/
     steps:
       - checkout
       - run:
