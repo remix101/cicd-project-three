@@ -416,7 +416,7 @@ jobs:
                 --no-paginate --output text
             )
             echo Old Workflow ID: "${OldWorkflowID}"
-            if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
+            if [[ "${CIRCLE_WORKFLOW_ID:0:7}"" != "${OldWorkflowID}" ]]
             then
               echo S3 bucket to delete: "s3://udapeople-${OldWorkflowID}"
               aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
